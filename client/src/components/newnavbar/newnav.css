@@ -1,0 +1,36 @@
+body{
+  overflow-x: hidden;
+}
+.new_nav {
+  width: 100vw;
+  height: 40px;
+  background-color: #232f3e;
+  position: relative;
+  top: 52px;
+  margin-left: -8px;
+}
+
+.new_nav .nav_data {
+  display: flex;
+  justify-content: space-between;
+}
+
+.new_nav .nav_data .left_data {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex: 1;
+}
+
+.new_nav .nav_data .left_data p {
+  color: #fff;
+  font-weight: 500;
+  font-size: 13px;
+}
+
+/* media query */
+@media (max-width: 808px) {
+  .new_nav {
+    display: none;
+  }
+}
