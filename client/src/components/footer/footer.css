@@ -3,6 +3,9 @@ footer{
     top: 55px;
     background-color:#232F3E;
     width: 100vw;
+    /* border: 2px solid red; */
+    left: -8px;
+    
 }
 
 footer .footer_container{
