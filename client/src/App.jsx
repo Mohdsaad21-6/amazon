@@ -1,3 +1,4 @@
+import Buynow from "./components/Buynow/Buynow";
 import Cart from "./components/cart/Cart";
 import Footer from "./components/footer/Footer";
 import Navbar from "./components/header/Navbar";
@@ -18,6 +19,8 @@ function App() {
         <Route path="/login" element={<Sign_in />} />
         <Route path="/register" element={<SignUp />} />
         <Route path="/getproductsone/:id" element={<Cart />} />
+        <Route path="/buynow" element={<Buynow />} />
+
       </Routes>
       <Footer />
     </>
