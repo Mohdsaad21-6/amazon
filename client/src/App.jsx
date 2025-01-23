@@ -1,3 +1,4 @@
+import Cart from "./components/cart/Cart";
 import Footer from "./components/footer/Footer";
 import Navbar from "./components/header/Navbar";
 import Maincomp from "./components/home/Maincomp";
@@ -11,12 +12,12 @@ function App() {
   return (
     <>
       <Navbar />
-
       <Newnav />
       <Routes>
         <Route path="/" element={<Maincomp />} />
         <Route path="/login" element={<Sign_in />} />
         <Route path="/register" element={<SignUp />} />
+        <Route path="/getproductsone/:id" element={<Cart />} />
       </Routes>
       <Footer />
     </>

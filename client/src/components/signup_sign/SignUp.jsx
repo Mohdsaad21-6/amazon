@@ -1,6 +1,28 @@
+import { use, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 const SignUp = () => {
+
+    const [udata,setUdata]=useState({
+      fname:"",
+      email:"",
+      password:"",
+      cpassword:""
+
+    })
+console.log(udata);
+
+
+    const  adddata=(e)=>{
+      const {name,value}=e.target;
+      setUdata(()=>{
+        return {...udata,
+          [name]:value
+        }
+      })
+
+
+    }
   return (
     <>
       <section>
@@ -18,6 +40,8 @@ const SignUp = () => {
                   name="fname"
                   placeholder="Enter Your Name"
                   id="fname"
+                  onChange={adddata}
+                  value={udata.fname}
                 />
               </div>
               <div className="form_data">
@@ -27,15 +51,19 @@ const SignUp = () => {
                   name="email"
                   placeholder="Enter Your Email"
                   id="email"
+                  onChange={adddata}
+                  value={udata.email}
                 />
               </div>
               <div className="form_data">
                 <label htmlFor="number">Mobile Number</label>
                 <input
-                  type="number"
+                  type="text"
                   name="mobile"
                   placeholder="Enter Your Number"
                   id="mobile"
+                  onChange={adddata}
+                  value={udata.mobile}
                 />
               </div>
 
@@ -46,15 +74,19 @@ const SignUp = () => {
                   name="password"
                   placeholder="At least 6 character"
                   id="password"
+                  onChange={adddata}
+                  value={udata.password}
                 />
               </div>
               <div className="form_data">
-                <label htmlFor=""> Confirm Password</label>
+                <label htmlFor="cpassword"> Confirm Password</label>
                 <input
                   type="password"
-                  name="password"
+                  name="cpassword"
                   placeholder="Confirm Your Password"
-                  id="password"
+                  id="cpassword"
+                  onChange={adddata}
+                  value={udata.cpassword}
                 />
               </div>
 
