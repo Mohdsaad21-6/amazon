@@ -1,13 +1,21 @@
-require("dotenv").config()
+require("dotenv").config();
+const express = require("express");
+const mongoose = require("mongoose");
+const app = express();
+require("./db/conn");
+const PORT = 8005;
 
-const express=require("express")
+const Products=require("./models/productsSchema");
+const DefaultData=require("./defaultdata")
 
-const app =express()
+
+app.use("/", (req, res) => {
+  res.send("Welcome to home page");
+});
+
+app.listen(PORT, () => {
+  console.log(`Server was listeninin on  ${PORT}`);
+});
 
 
-const PORT=8005;
-
-app.listen(PORT,()=>{
-    console.log(`Server was listeninin on  ${PORT}`);
-    
-})
+DefaultData();
