@@ -1,10 +1,10 @@
-const mongoose =require("mongoose");
+const mongoose=require("mongoose")
 
 
 const productsSchema=new mongoose.Schema({
     id:String,
     url:String,
-    detailsUrl:String,
+    detailsUrl:Object,
     title:Object,
     price:Object,
     description:String,
@@ -12,6 +12,8 @@ const productsSchema=new mongoose.Schema({
     tagline:String
 })
 
-const Products =new mongoose.model("amazon",productsSchema)
+
+const Products=new mongoose.model("products",productsSchema);
+
 
 module.exports=Products

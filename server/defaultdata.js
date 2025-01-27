@@ -1,16 +1,23 @@
-const Products=require("./models/productsSchema");
+const Products = require("./models/productsSchema");
+const Productsdata = require("./constant/productsdata");
+// const products = require("./constant/productsdata");
 
 
-const productsdata=require("./constant/productsdata")
 
 
 const DefaultData=async()=>{
     try {
-        const storeData= await Products.insertMany(productsdata);
+
+        await Products.deleteMany({});
+
+        const storeData=await Products.insertMany(Productsdata)
         console.log(storeData);
+        
+        
     } catch (error) {
-        console.log(error.message)
+        console.log(error.message);
+        
     }
 }
 
-module.exports=DefaultData;
+module.exports = DefaultData;
