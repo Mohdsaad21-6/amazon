@@ -1,12 +1,7 @@
 const mongoose = require("mongoose");
 require("mongodb");
-// const { mongoClient } = require("mongodb");
 
 const DB = process.env.DATABASE;
-
-// const client = new mongoClient(DB);
-
-// const dbName = "Amazonweb";
 
 mongoose
   .connect(DB)
