@@ -6,7 +6,10 @@ const DefaultData=require("./defaultdata")
 const cors=require("cors")
 const router=require("./routes/router");
 
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true,
+}));
 app.use(express.json())
 const PORT = 8005;
 

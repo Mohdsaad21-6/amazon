@@ -1,7 +1,32 @@
 import { Divider } from "@mui/material";
 import "./cart.css";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
 
 const Cart = () => {
+
+
+  const {id} = useParams();
+  // console.log(id);
+
+ const  getinddata=async()=>{
+  const  res=await fetch(`/getproductsone/${id}`,{withcredentials:true},
+    {
+      method:"GET",
+      headers:{
+        "Content-Type":"application/json",
+    }
+  }
+  );
+  const data=await res.json();
+  console.log(data)
+ }
+
+
+useEffect(()=>{
+  getinddata()
+},[id])
+
   return (
     <div className="cart_section">
       <div className="cart_container">

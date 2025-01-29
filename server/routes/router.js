@@ -14,3 +14,16 @@ router.get("/getproducts", async (req, res) => {
 });
 
 module.exports = router;
+
+router.get("/getproductsone/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    // console.log("id=> " + id);
+    const individualdata = await Products.findOne({ id: id });
+    // console.log(individualdata);
+    res.status(201).json(individualdata);
+  } catch (error) {
+    res.status(400).json(individualdata);
+    console.log(error.message);
+  }
+});
