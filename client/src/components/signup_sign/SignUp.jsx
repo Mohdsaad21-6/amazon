@@ -1,28 +1,40 @@
-import { use, useState } from "react";
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import axios from "axios";
 
 const SignUp = () => {
+  const [udata, setUdata] = useState({
+    fname: "",
+    email: "",
+    mobile: "",
+    password: "",
+    cpassword: "",
+  });
+  console.log(udata);
 
-    const [udata,setUdata]=useState({
-      fname:"",
-      email:"",
-      password:"",
-      cpassword:""
+  const adddata = (e) => {
+    const { name, value } = e.target;
+    setUdata(() => {
+      return { ...udata, [name]: value };
+    });
+  };
 
-    })
-console.log(udata);
+  const senddata = async (e) => {
+    e.preventDefault();
+    const { fname, email, mobile, password, cpassword } = udata;
 
+    const res = await axios.post("http://localhost:8005/register", {
+      fname,
+      email,
+      mobile,
+      password,
+      cpassword,
+    });
 
-    const  adddata=(e)=>{
-      const {name,value}=e.target;
-      setUdata(()=>{
-        return {...udata,
-          [name]:value
-        }
-      })
+    const data = await res.data;
+    console.log(data);
+  };
 
-
-    }
   return (
     <>
       <section>
@@ -31,7 +43,7 @@ console.log(udata);
             <img src="./blacklogoamazon.png" alt="amazon logo"></img>
           </div>
           <div className="sign_form">
-            <form>
+            <form method="POST">
               <h1>Sign-Up</h1>
               <div className="form_data">
                 <label htmlFor="fname">Your Name</label>
@@ -90,7 +102,10 @@ console.log(udata);
                 />
               </div>
 
-              <button className="signin_btn"> Continue</button>
+              <button className="signin_btn" onClick={senddata}>
+                {" "}
+                Continue
+              </button>
               <div className="signin_info">
                 <p>Already have an account?</p>
                 <NavLink to="/login">Sign here</NavLink>

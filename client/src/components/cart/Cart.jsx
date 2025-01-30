@@ -1,12 +1,18 @@
 import { Divider } from "@mui/material";
 import "./cart.css";
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 const Cart = () => {
   const { id } = useParams("");
+
+  const [inddata, setInddata] = useState([]);
+
   // console.log(id);
+  console.log(inddata);
+  
+  // const { title, description, url, } = inddata;
 
   const getinddata = async () => {
     try {
@@ -19,6 +25,12 @@ const Cart = () => {
 
       const data = await res.data;
       console.log(data);
+      if (res.status !== 201) {
+        console.log("No data available");
+      } else {
+        console.log("getdata");
+        setInddata(data);
+      }
     } catch (error) {
       console.log(error.message);
     }
@@ -32,27 +44,29 @@ const Cart = () => {
     <div className="cart_section">
       <div className="cart_container">
         <div className="left_cart">
-          <img src="./image.png " alt="cart image" />
+          <img src={inddata.url} alt="cart image" />
           <div className="cart_btn">
             <button className="cart_btn1">Add to Cart</button>
             <button className="cart_btn2">Buy Now</button>
           </div>
         </div>
         <div className="right_cart">
-          <h3>Fitness Gear</h3>
-          <h4>ac with best services</h4>
+          <h3> 
+          {inddata?.title?.shortTitle} 
+          </h3>
+          <h4>{inddata?.title?.longTitle}</h4>
           <Divider />
-          <p className="mrp">M.R.P ₹ 1195</p>
+          <p className="mrp">₹{inddata?.price?.mrp}.00</p>
           <p>
-            Deal Of The Day:<span style={{ color: "#b12704" }}>₹625.00</span>{" "}
+            Deal Of The Day:<span style={{ color: "#b12704" }}>{inddata?.price?.cost}.00</span>{" "}
           </p>
           <p>
-            You save:<span style={{ color: "#b12704" }}>547 (47%)</span>{" "}
+            You save:<span style={{ color: "#b12704" }}>₹{inddata?.price?.mrp- inddata?.price?.cost} ({inddata?.price?.discount})</span>{" "}
           </p>
 
           <div className="discount_box">
             <h5>
-              Discount : <span style={{ color: "#111" }}>Extra 10% 0ff</span>
+              Discount : <span style={{ color: "#111" }}>{inddata?.discount}</span>
             </h5>
             <h4>
               {" "}
@@ -81,11 +95,7 @@ const Cart = () => {
                 letterSpacing: "0.",
               }}
             >
-              The sun was setting over the vast, rolling hills as a gentle
-              breeze rustled the leaves of the tall trees. A group of children
-              laughed and played in the distance, their joyful shouts carrying
-              on the wind. The air was filled with the sweet scent of blooming
-              wildflowers everywhere outside
+              {inddata?.description}
             </span>
           </p>
         </div>
