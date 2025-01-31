@@ -1,6 +1,10 @@
 import { NavLink } from "react-router-dom";
 import "./signup.css";
 import { useState } from "react";
+import axios from "axios";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
+
 
 const Sign_in = () => {
   const [data, setData] = useState({
@@ -20,6 +24,40 @@ const Sign_in = () => {
     });
   };
 
+  //ADD FORM VALIDATION HERE AND ALSO ADD A TOAST MESSAGE AND IN THE REGISTER PAGE ALSO
+
+  const senddata = async (e) => {
+    e.preventDefault();
+    const { email, password } = data;
+
+    const res = await axios.post(
+      "http://localhost:8005/login",
+      {
+        email,
+        password,
+      },
+      { withcredentials: true }
+    );
+    const logdata = await res.data;
+
+    console.log(logdata);
+    
+
+    //BUG WAS HERE IN THE BELOW LINE OF CODE toast.warn was not working in also in the register page
+
+    if (res.status === 400 || !data) {
+      console.log("Invalid Login");
+      toast.warn("Invalid Login", { position: "top-center" });
+    } else {
+      console.log("Login Successful");
+      toast.success("Login Successful", { position: "top-center" });
+      setData({
+        email: "",
+        password: "",
+      });
+    }
+  };
+
   return (
     <>
       <section>
@@ -28,7 +66,7 @@ const Sign_in = () => {
             <img src="./blacklogoamazon.png" alt="amazon logo"></img>
           </div>
           <div className="sign_form">
-            <form>
+            <form method="POST">
               <h1>Sign In</h1>
               <div className="form_data">
                 <label htmlFor="" name="email" id="eamail">
@@ -54,17 +92,19 @@ const Sign_in = () => {
                   id="password"
                 />
               </div>
-              <button className="signin_btn"> Continue</button>
+              <button className="signin_btn" onClick={senddata}> Continue</button>
             </form>
           </div>
           <div className="create_accountinfo">
             <p>New To Amazon</p>
-            <NavLink to="/register">
+
+            <button>
               {" "}
-              <button>Create Your amazon account</button>
-            </NavLink>
+              <NavLink to="/register">Create your Amazon Account</NavLink>
+            </button>
           </div>
         </div>
+        <ToastContainer />
       </section>
     </>
   );

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 
 const SignUp = () => {
   const [udata, setUdata] = useState({
@@ -10,7 +12,7 @@ const SignUp = () => {
     password: "",
     cpassword: "",
   });
-  console.log(udata);
+  // console.log(udata);
 
   const adddata = (e) => {
     const { name, value } = e.target;
@@ -23,16 +25,38 @@ const SignUp = () => {
     e.preventDefault();
     const { fname, email, mobile, password, cpassword } = udata;
 
-    const res = await axios.post("http://localhost:8005/register", {
-      fname,
-      email,
-      mobile,
-      password,
-      cpassword,
-    });
+    const res = await axios.post(
+      "http://localhost:8005/register",
+      {
+        fname,
+        email,
+        mobile,
+        password,
+        cpassword,
+      },
+      { withcredentials: true }
+    );
 
     const data = await res.data;
-    console.log(data);
+    // console.log(data);
+
+    //BUG WAS HERE IN THE BELOW LINE OF CODE
+    if (res.status === 422 || !data) {
+      // window.alert("Invalid Registration");
+      toast.warn("Invalid Registration", { position: "top-center" });
+    } else {
+      // window.alert("Registration Successful");
+      toast.success("Registration Successful", {
+        position: "top-center",
+      });
+      setUdata({
+        fname: "",
+        email: "",
+        mobile: "",
+        password: "",
+        cpassword: "",
+      });
+    }
   };
 
   return (
@@ -113,6 +137,7 @@ const SignUp = () => {
             </form>
           </div>
         </div>
+        <ToastContainer />
       </section>
     </>
   );
