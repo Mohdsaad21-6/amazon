@@ -83,7 +83,14 @@ router.post("/login", async (req, res) => {
     const isPasswordValid = await bcrypt.compare(password, userLogin.password);
 
     const token = await userLogin.getJWT();
-    console.log("Token=> " + token);
+    // console.log("Token=> " + token);
+
+    res.cookie("Amazonwebtoken", token, {
+      expires: new Date(Date.now() + 900000),
+      httpOnly: true,
+      samesite: "lax",
+      secure:true
+    })
 
     if (!isPasswordValid) {
       res.status(400).json({ error: "Invalid Credentials" });

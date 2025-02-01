@@ -34,7 +34,7 @@ const SignUp = () => {
         password,
         cpassword,
       },
-      { withcredentials: true }
+      { withCredentials: true }
     );
 
     const data = await res.data;

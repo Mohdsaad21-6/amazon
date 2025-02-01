@@ -36,7 +36,7 @@ const Sign_in = () => {
         email,
         password,
       },
-      { withcredentials: true }
+      { withCredentials: true }
     );
     const logdata = await res.data;
 
